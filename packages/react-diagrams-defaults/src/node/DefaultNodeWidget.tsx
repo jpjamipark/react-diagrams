@@ -52,7 +52,8 @@ namespace S {
 
 export interface DefaultNodeProps {
 	node: DefaultNodeModel;
-	engine: DiagramEngine;
+    engine: DiagramEngine;
+    parameters: number;
 }
 
 /**
@@ -60,9 +61,20 @@ export interface DefaultNodeProps {
  * for both all the input ports on the left, and the output ports on the right.
  */
 export class DefaultNodeWidget extends React.Component<DefaultNodeProps> {
+    constructor(props) {
+        super(props);
+        this.state = {readOnly: false} 
+        this.state = {"parameters": 16}
+    }
+
 	generatePort = port => {
 		return <DefaultPortLabel engine={this.props.engine} port={port} key={port.getID()} />;
-	};
+    };
+
+    handleChange = event => {
+        this.setState({"parameters": event.target.value});
+
+    }
 
 	render() {
 		return (
@@ -73,6 +85,14 @@ export class DefaultNodeWidget extends React.Component<DefaultNodeProps> {
 				<S.Title>
 					<S.TitleName>{this.props.node.getOptions().name}</S.TitleName>
 				</S.Title>
+                <form>
+                    <label>Parameters
+                    <input type="text" name="parameters" value={this.state.parameters} onChange={this.handleChange}/>
+                    </label>
+                </form>
+                <div>
+                    {this.state.parameters}
+                </div>
 				<S.Ports>
 					<S.PortsContainer>{_.map(this.props.node.getInPorts(), this.generatePort)}</S.PortsContainer>
 					<S.PortsContainer>{_.map(this.props.node.getOutPorts(), this.generatePort)}</S.PortsContainer>
