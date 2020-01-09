@@ -6,6 +6,7 @@ import { BasePositionModelOptions, DeserializeEvent } from '@projectstorm/react-
 export interface DefaultNodeModelOptions extends BasePositionModelOptions {
 	name?: string;
 	color?: string;
+	parameters?: number;
 }
 
 export interface DefaultNodeModelGenerics extends NodeModelGenerics {
@@ -48,6 +49,10 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
 		} else {
 			this.portsOut.splice(this.portsOut.indexOf(port));
 		}
+	}
+
+	setParameters(p: number): void {
+		this.options.parameters = p;
 	}
 
 	addPort<T extends DefaultPortModel>(port: T): T {
@@ -112,7 +117,8 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
 			}),
 			portsOutOrder: _.map(this.portsOut, port => {
 				return port.getID();
-			})
+			}),
+			parameters: this.options.parameters,
 		};
 	}
 
