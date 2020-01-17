@@ -16,6 +16,11 @@ import { DemoCanvasWidget } from './helpers/DemoCanvasWidget';
 
 // custom neural nodes
 import { InputNodeModel } from './components/neural_nodes/input/InputNodeModel'
+import { InputNodeFactory } from './components/neural_nodes/input/InputNodeFactory'
+
+// setup
+const engine = createEngine();
+engine.getNodeFactories().registerFactory(new InputNodeFactory());
 
 function get_default_model() {
     // node 1
@@ -45,22 +50,26 @@ function get_default_model() {
 
 function get_starter_neural() {
     // input
-    const input_node = new InputNodeModel({
+    const input_node1 = new InputNodeModel({
         name: 'Input',
         color: 'rgb(0,192,255)',
     });
-    input_node.setPosition(100, 100);
-    let port1 = input_node.addOutPort('Out');
+    input_node1.setPosition(100, 100);
+
+    const input_node2 = new InputNodeModel({
+        name: 'Input',
+        color: 'rgb(0,192,255)',
+    });
+    input_node2.setPosition(500, 100);
 
     const model = new DiagramModel();
-    model.addAll(input_node);
+    model.addAll(input_node1, input_node2);
     return model;
 }
 
 
 function App() {  
   let starter_model = get_starter_neural();
-  const engine = createEngine();
   engine.setModel(starter_model);
   return (
     <DemoCanvasWidget>

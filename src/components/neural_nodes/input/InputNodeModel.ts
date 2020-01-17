@@ -1,12 +1,17 @@
-import { DiagramEngine, NodeModel, DefaultPortModel } from '@projectstorm/react-diagrams';
+import { DiagramEngine, NodeModel, DefaultPortModel, PortModelAlignment, NodeModelGenerics } from '@projectstorm/react-diagrams';
 import { BaseModelOptions } from '@projectstorm/react-canvas-core';
+import { NeuralPortModel } from '../common/port';
 
 export interface InputNodeModelOptions extends BaseModelOptions {
     color?: string;
     name?: string;
 }
 
-export class InputNodeModel extends NodeModel {
+export interface InputNodeModelGenerics extends NodeModelGenerics {
+	OPTIONS: InputNodeModelOptions;
+}
+
+export class InputNodeModel extends NodeModel<NodeModelGenerics> {
 	color: string;
 
 	constructor(options: InputNodeModelOptions = {}) {
@@ -14,25 +19,13 @@ export class InputNodeModel extends NodeModel {
 			...options,
 			type: 'input-neural-node'
 		});
-		this.color = options.color || 'red';
-    }
-
-    addInPort(name: string) {
+        this.color = options.color || 'no-color';
         this.addPort(
-			new DefaultPortModel({
-				in: true,
-				name: name
-			})
-		);
-    }
-
-    addOutPort(name: string) {
-        this.addPort(
-			new DefaultPortModel({
-				in: false,
-				name: name
-			})
-		);
+            new NeuralPortModel({
+                alignment: PortModelAlignment.RIGHT,
+                name: 'out'
+            })
+        )
     }
 
 	serialize() {

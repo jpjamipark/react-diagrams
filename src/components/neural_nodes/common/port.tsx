@@ -1,27 +1,56 @@
 // custom port widget and model
 
 import createEngine, {
-	DiagramModel,
-	DefaultNodeModel,
-	DefaultPortModel,
-	DefaultLinkFactory,
-    DefaultLinkModel,
     PortModel,
     PortModelAlignment,
     PortWidget,
-    DiagramEngine
+    DiagramEngine,
+    PortModelOptions,
+    PortModelGenerics,
+    DefaultLinkModel,
+    LinkModel
 } from '@projectstorm/react-diagrams';
+import { AbstractModelFactory } from '@projectstorm/react-canvas-core';
 import * as React from 'react';
 
 // MODEL
-export class NeuralPortModel extends PortModel {
-    constructor(alignment: PortModelAlignment) {
+export interface NeuralPortModelOptions extends PortModelOptions {
+    name: string,
+    alignment?: PortModelAlignment,
+    in?: boolean
+}
+
+export interface NeuralPortModelGenerics extends PortModelGenerics {
+	OPTIONS: NeuralPortModelOptions;
+}
+
+
+export class NeuralPortModel extends PortModel<NeuralPortModelGenerics> {
+    constructor(options: NeuralPortModelOptions) {
         super({
             type: 'neural',
-            name: alignment,
-            alignment: alignment // <-- here
+            ...options
         });
     }
+
+    link<T extends LinkModel>(port: PortModel, factory?: AbstractModelFactory<T>): T {
+		let link = this.createLinkModel(factory);
+		link.setSourcePort(this);
+		link.setTargetPort(port);
+		return link as T;
+	}
+
+	canLinkToPort(port: PortModel): boolean {
+		return true;
+	}
+
+	createLinkModel(factory?: AbstractModelFactory<LinkModel>): LinkModel {
+		let link = super.createLinkModel();
+		if (!link && factory) {
+			return factory.generateModel({});
+		}
+		return link || new DefaultLinkModel();
+	}
 }
 
 
@@ -29,6 +58,7 @@ export class NeuralPortModel extends PortModel {
 export interface NeuralPortWidgetProps {
     port: PortModel,
     engine: DiagramEngine,
+    in: boolean
 }
 
 export interface NeuralPortWidgetState {}
@@ -41,9 +71,10 @@ export class NeuralPortWidget extends React.Component<NeuralPortWidgetProps, Neu
                 engine={this.props.engine} >
                 <div
                     style={{
-                        width: 40,
-                        height: 40,
-                        background: 'orange'
+                        width: 20,
+                        height: 20,
+                        background: 'cyan',
+                        float: this.props.in ? 'left' : 'right'
                     }}
                 />
             </PortWidget>

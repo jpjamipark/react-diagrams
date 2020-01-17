@@ -2,6 +2,8 @@ import * as React from 'react';
 import { DiagramEngine, PortWidget, PortModel } from '@projectstorm/react-diagrams-core';
 import { InputNodeModel } from './InputNodeModel';
 import { NeuralPortWidget } from '../common/port';
+import * as S from '../common/NodeStyles'
+
 
 export interface InputNodeWidgetProps {
 	node: InputNodeModel;
@@ -11,19 +13,33 @@ export interface InputNodeWidgetProps {
 export interface InputNodeWidgetState {}
 
 export class InputNodeWidget extends React.Component<InputNodeWidgetProps, InputNodeWidgetState> {
-    inPort: PortModel;
+    outPort: PortModel;
 
 	constructor(props: InputNodeWidgetProps) {
 		super(props);
-		this.state = {};
-        this.inPort = this.props.node.getPort('in') as PortModel;
+        this.state = {};
+        this.outPort = this.props.node.getPort('out') as PortModel;
+        console.log(this.props.node.getOptions());
 	}
 
 	render() {
+        let options = this.props.node.getOptions() as any;
 		return (
-			<div className="input-neural-node">
-				<NeuralPortWidget engine={this.props.engine} port={this.inPort}/>
-			</div>
+            <S.Node
+                data-default-node-name={options.name}
+				selected={this.props.node.isSelected()}
+				background={options.color}>
+                <S.Title>
+					<S.TitleName>{options.name}</S.TitleName>
+				</S.Title>
+                <S.Ports>
+                    <S.PortsContainer>
+                        <NeuralPortWidget engine={this.props.engine} port={this.outPort} in={false}>
+                            <div className="circle-port" />
+                        </NeuralPortWidget>
+                    </S.PortsContainer>
+                </S.Ports>
+            </S.Node>
 		);
 	}
 }
