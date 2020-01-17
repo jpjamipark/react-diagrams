@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { DiagramEngine, PortWidget, PortModel } from '@projectstorm/react-diagrams-core';
+import { DiagramEngine, PortModel, PortModelGenerics } from '@projectstorm/react-diagrams-core';
 import { InputNodeModel } from './InputNodeModel';
 import { NeuralPortWidget } from '../common/port';
 import * as S from '../common/NodeStyles'
-
 
 export interface InputNodeWidgetProps {
 	node: InputNodeModel;
@@ -24,6 +23,16 @@ export class InputNodeWidget extends React.Component<InputNodeWidgetProps, Input
 
 	render() {
         let options = this.props.node.getOptions() as any;
+        let neural_port_widgets : Array<JSX.Element> = [];
+        for (var port_name in this.props.node.getPorts()) {
+            let port = this.props.node.getPort(port_name) as PortModel<PortModelGenerics>;
+            let port_options = port.getOptions() as any;
+            neural_port_widgets.push(
+            <NeuralPortWidget engine={this.props.engine} port={port} in={port_options.in}>
+                <div className="circle-port" />
+            </NeuralPortWidget>
+            )
+        }
 		return (
             <S.Node
                 data-default-node-name={options.name}
@@ -34,9 +43,7 @@ export class InputNodeWidget extends React.Component<InputNodeWidgetProps, Input
 				</S.Title>
                 <S.Ports>
                     <S.PortsContainer>
-                        <NeuralPortWidget engine={this.props.engine} port={this.outPort} in={false}>
-                            <div className="circle-port" />
-                        </NeuralPortWidget>
+                        { neural_port_widgets }
                     </S.PortsContainer>
                 </S.Ports>
             </S.Node>

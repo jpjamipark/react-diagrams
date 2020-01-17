@@ -12,20 +12,29 @@ export interface InputNodeModelGenerics extends NodeModelGenerics {
 }
 
 export class InputNodeModel extends NodeModel<NodeModelGenerics> {
-	color: string;
+    color: string;
 
 	constructor(options: InputNodeModelOptions = {}) {
 		super({
 			...options,
 			type: 'input-neural-node'
 		});
+        let defaultPorts = [
+            {name: 'out',
+            in: false}
+        ]
+
         this.color = options.color || 'no-color';
-        this.addPort(
-            new NeuralPortModel({
-                alignment: PortModelAlignment.RIGHT,
-                name: 'out'
-            })
-        )
+        for (let i = 0; i < defaultPorts.length; i++) {
+            let name = defaultPorts[i].name
+            let alignment = (defaultPorts[i].in == true) ? PortModelAlignment.LEFT : PortModelAlignment.RIGHT
+            this.addPort(
+                new NeuralPortModel({
+                    alignment: alignment,
+                    name: name,
+                    in: defaultPorts[i].in
+            }))
+        }
     }
 
 	serialize() {

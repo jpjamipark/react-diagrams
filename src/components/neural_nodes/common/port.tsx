@@ -1,6 +1,6 @@
 // custom port widget and model
 
-import createEngine, {
+import {
     PortModel,
     PortModelAlignment,
     PortWidget,
@@ -14,7 +14,9 @@ import { AbstractModelFactory } from '@projectstorm/react-canvas-core';
 import * as React from 'react';
 import * as S from './PortStyles';
 
+// ==================================================
 // MODEL
+// ==================================================
 export interface NeuralPortModelOptions extends PortModelOptions {
     name: string,
     alignment?: PortModelAlignment,
@@ -54,8 +56,9 @@ export class NeuralPortModel extends PortModel<NeuralPortModelGenerics> {
 	}
 }
 
-
+// ==================================================
 // WIDGET
+// ==================================================
 export interface NeuralPortWidgetProps {
     port: PortModel,
     engine: DiagramEngine,
