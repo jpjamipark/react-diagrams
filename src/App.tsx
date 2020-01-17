@@ -14,8 +14,10 @@ import {
 
 import { DemoCanvasWidget } from './helpers/DemoCanvasWidget';
 
+// custom neural nodes
+import { InputNodeModel } from './components/neural_nodes/input/InputNodeModel'
 
-function get_starter_model() {
+function get_default_model() {
     // node 1
     const node1 = new DefaultNodeModel({
         name: 'Node 1',
@@ -41,9 +43,23 @@ function get_starter_model() {
     return model;
 }
 
+function get_starter_neural() {
+    // input
+    const input_node = new InputNodeModel({
+        name: 'Input',
+        color: 'rgb(0,192,255)',
+    });
+    input_node.setPosition(100, 100);
+    let port1 = input_node.addOutPort('Out');
+
+    const model = new DiagramModel();
+    model.addAll(input_node);
+    return model;
+}
+
 
 function App() {  
-  let starter_model = get_starter_model();
+  let starter_model = get_starter_neural();
   const engine = createEngine();
   engine.setModel(starter_model);
   return (
