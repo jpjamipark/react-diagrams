@@ -12,6 +12,7 @@ import createEngine, {
 } from '@projectstorm/react-diagrams';
 import { AbstractModelFactory } from '@projectstorm/react-canvas-core';
 import * as React from 'react';
+import * as S from './PortStyles';
 
 // MODEL
 export interface NeuralPortModelOptions extends PortModelOptions {
@@ -65,17 +66,18 @@ export interface NeuralPortWidgetState {}
 
 export class NeuralPortWidget extends React.Component<NeuralPortWidgetProps, NeuralPortWidgetState> {
     render() {
-        return(
-            <PortWidget
-                port={this.props.port}
-                engine={this.props.engine} >
-                <div
-                    style={{
-                        width: 20,
-                        height: 20,
-                        background: 'cyan',
-                        float: this.props.in ? 'left' : 'right'
-                    }}
-                />
+        let port_options = this.props.port.getOptions() as any;
+        const port = (
+            <PortWidget engine={this.props.engine} port={this.props.port}>
+                <S.Port />
             </PortWidget>
-)}}
+        );
+        const label = <S.Label>{port_options.name}</S.Label>;
+    
+        return (
+            <S.PortLabel>
+                {port_options.in ? port : label}
+                {port_options.in ? label : port}
+            </S.PortLabel>
+        );
+    }}
