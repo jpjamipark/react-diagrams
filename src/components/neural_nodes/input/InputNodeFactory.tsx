@@ -9,11 +9,11 @@ export class InputNodeFactory extends AbstractReactFactory<InputNodeModel, Diagr
 		super('input-neural-node');
 	}
 
-	generateModel(initialConfig) {
+	generateModel(initialConfig: any) {
 		return new InputNodeModel();
 	}
 
-	generateReactWidget(event): JSX.Element {
+	generateReactWidget(event: any): JSX.Element {
 		return <InputNodeWidget engine={this.engine as DiagramEngine} node={event.model} />;
 	}
 }

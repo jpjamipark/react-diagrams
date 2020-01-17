@@ -27,7 +27,7 @@ export class NeuralPortModel extends PortModel {
 
 // WIDGET
 export interface NeuralPortWidgetProps {
-    port: PortModel | null,
+    port: PortModel,
     engine: DiagramEngine,
 }
 
