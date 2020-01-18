@@ -15,8 +15,7 @@ import {
 import { CustomCanvasWidget } from './helpers/CustomCanvasWidget';
 
 // custom neural nodes
-import { InputNodeModel } from './components/neural_nodes/input/InputNodeModel'
-import { InputNodeFactory } from './components/neural_nodes/input/InputNodeFactory'
+import { InputNodeModel, InputNodeFactory } from './components/neural_nodes/input/InputNode'
 import { NeuralNodeModel } from './components/neural_nodes/neural_node/NeuralNodeModel';
 import { NeuralNodeFactory } from './components/neural_nodes/neural_node/NeuralNodeFactory'
 
@@ -66,33 +65,20 @@ function get_starter_neural() {
     });
     input_node2.setPosition(500, 100);
 
-    const model = new DiagramModel();
-    model.addAll(input_node1, input_node2);
-    return model;
-}
-
-function get_experimental_neural() {
-    // input
-    const node1 = new NeuralNodeModel({
-        name: 'Input',
-        color: 'rgb(0,192,255)',
-    });
-    node1.setPosition(100, 100);
-
-    const node2 = new NeuralNodeModel({
-        name: 'Input',
-        color: 'rgb(0,192,255)',
-    });
-    node2.setPosition(500, 100);
+    const neural_node = new NeuralNodeModel({
+        name: 'Default',
+        color: 'rgb(0, 255, 255)'
+    })
+    neural_node.setPosition(300, 200);
 
     const model = new DiagramModel();
-    model.addAll(node1, node2);
+    model.addAll(input_node1, input_node2, neural_node);
     return model;
 }
 
 
 function App() {  
-  let starter_model = get_experimental_neural();
+  let starter_model = get_starter_neural();
   engine.setModel(starter_model);
   return (
     <CustomCanvasWidget>

@@ -1,14 +1,17 @@
-import { NodeModelGenerics } from '@projectstorm/react-diagrams';
+import { NeuralNodeFactory } from '../neural_node/NeuralNodeFactory';
 import { BaseModelOptions } from '@projectstorm/react-canvas-core';
 import { NeuralNodeModel } from '../neural_node/NeuralNodeModel';
+import { NeuralNodeWidget } from '../neural_node/NeuralNodeWidget';
+
+export class InputNodeFactory extends NeuralNodeFactory {
+	constructor() {
+		super('input-neural-node');
+	}
+}
 
 export interface InputNodeModelOptions extends BaseModelOptions {
     color?: string;
     name?: string;
-}
-
-export interface InputNodeModelGenerics extends NodeModelGenerics {
-	OPTIONS: InputNodeModelOptions;
 }
 
 export class InputNodeModel extends NeuralNodeModel {
@@ -23,3 +26,5 @@ export class InputNodeModel extends NeuralNodeModel {
         }, defaultPorts);
     }
 }
+
+export class InputNodeWidget extends NeuralNodeWidget {}
