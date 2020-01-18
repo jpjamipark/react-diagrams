@@ -37,17 +37,29 @@ export class NeuralPortModel extends PortModel<NeuralPortModelGenerics> {
     }
 
     link<T extends LinkModel>(port: PortModel, factory?: AbstractModelFactory<T>): T {
-		let link = this.createLinkModel(factory);
-		link.setSourcePort(this);
-		link.setTargetPort(port);
-		return link as T;
+        let link = this.createLinkModel(factory) as LinkModel;
+        link.setSourcePort(this);
+        link.setTargetPort(port);
+        return link as T;
 	}
 
-	canLinkToPort(port: PortModel): boolean {
+	canLinkToPort(port: NeuralPortModel): boolean {
+        if (port.options.in && this.options.in) {
+            alert('Can not connect input to input');
+            return false;
+        }
+        if (!port.options.in && !this.options.in) {
+            alert('Can not connect output to output');
+            return false;
+        }
 		return true;
 	}
 
-	createLinkModel(factory?: AbstractModelFactory<LinkModel>): LinkModel {
+	createLinkModel(factory?: AbstractModelFactory<LinkModel>): LinkModel | null {
+        // can return null from this function to prevent a link from being created
+        if (this.options.in) {
+            return null;
+        }
 		let link = super.createLinkModel();
 		if (!link && factory) {
 			return factory.generateModel({});
