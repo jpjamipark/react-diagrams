@@ -1,4 +1,4 @@
-import { DiagramEngine, NodeModel, DefaultPortModel, PortModelAlignment, NodeModelGenerics } from '@projectstorm/react-diagrams';
+import { NodeModel, PortModelAlignment, NodeModelGenerics } from '@projectstorm/react-diagrams';
 import { BaseModelOptions } from '@projectstorm/react-canvas-core';
 import { NeuralPortModel } from '../common/port';
 
@@ -33,7 +33,7 @@ export class InputNodeModel extends NodeModel<NodeModelGenerics> {
         this.color = options.color || 'no-color';
         for (let i = 0; i < defaultPorts.length; i++) {
             let name = defaultPorts[i].name
-            let alignment = (defaultPorts[i].in == true) ? PortModelAlignment.LEFT : PortModelAlignment.RIGHT
+            let alignment = (defaultPorts[i].in === true) ? PortModelAlignment.LEFT : PortModelAlignment.RIGHT
             this.addPort(
                 new NeuralPortModel({
                     alignment: alignment,

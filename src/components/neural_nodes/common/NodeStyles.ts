@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 
 export const Node = styled.div<{ background: string; selected: boolean }>`
     background-color: ${p => p.background};
