@@ -17,10 +17,13 @@ import { CustomCanvasWidget } from './helpers/CustomCanvasWidget';
 // custom neural nodes
 import { InputNodeModel } from './components/neural_nodes/input/InputNodeModel'
 import { InputNodeFactory } from './components/neural_nodes/input/InputNodeFactory'
+import { NeuralNodeModel } from './components/neural_nodes/neural_node/NeuralNodeModel';
+import { NeuralNodeFactory } from './components/neural_nodes/neural_node/NeuralNodeFactory'
 
 // setup
 const engine = createEngine({ registerDefaultDeleteItemsAction: false });
 engine.getNodeFactories().registerFactory(new InputNodeFactory());
+engine.getNodeFactories().registerFactory(new NeuralNodeFactory());
 engine.getActionEventBus().registerAction(new DeleteItemsAction({ keyCodes: [46] }));
 
 function get_default_model() {
@@ -68,9 +71,28 @@ function get_starter_neural() {
     return model;
 }
 
+function get_experimental_neural() {
+    // input
+    const node1 = new NeuralNodeModel({
+        name: 'Input',
+        color: 'rgb(0,192,255)',
+    });
+    node1.setPosition(100, 100);
+
+    const node2 = new NeuralNodeModel({
+        name: 'Input',
+        color: 'rgb(0,192,255)',
+    });
+    node2.setPosition(500, 100);
+
+    const model = new DiagramModel();
+    model.addAll(node1, node2);
+    return model;
+}
+
 
 function App() {  
-  let starter_model = get_starter_neural();
+  let starter_model = get_experimental_neural();
   engine.setModel(starter_model);
   return (
     <CustomCanvasWidget>
