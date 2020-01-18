@@ -9,18 +9,20 @@ import createEngine, {
 } from '@projectstorm/react-diagrams';
 
 import {
-    CanvasWidget
+    CanvasWidget,
+    DeleteItemsAction
 } from '@projectstorm/react-canvas-core';
 
-import { DemoCanvasWidget } from './helpers/DemoCanvasWidget';
+import { CustomCanvasWidget } from './helpers/CustomCanvasWidget';
 
 // custom neural nodes
 import { InputNodeModel } from './components/neural_nodes/input/InputNodeModel'
 import { InputNodeFactory } from './components/neural_nodes/input/InputNodeFactory'
 
 // setup
-const engine = createEngine();
+const engine = createEngine({ registerDefaultDeleteItemsAction: false });
 engine.getNodeFactories().registerFactory(new InputNodeFactory());
+engine.getActionEventBus().registerAction(new DeleteItemsAction({ keyCodes: [46] }));
 
 function get_default_model() {
     // node 1
@@ -72,9 +74,9 @@ function App() {
   let starter_model = get_starter_neural();
   engine.setModel(starter_model);
   return (
-    <DemoCanvasWidget>
+    <CustomCanvasWidget>
         <CanvasWidget engine={engine}/>
-    </DemoCanvasWidget>
+    </CustomCanvasWidget>
   );
 }
 
