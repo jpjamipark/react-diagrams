@@ -32,11 +32,21 @@ export const Ports = styled.div`
 export const PortsContainer = styled.div`
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     &:first-of-type {
         margin-right: 10px;
     }
     &:only-child {
         margin-right: 0px;
     }
+`;
+
+export const InputPorts = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const OutputPorts = styled.div`
+    display: flex;
+    flex-direction: column;
 `;

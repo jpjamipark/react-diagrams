@@ -21,6 +21,12 @@ export class InputNodeModel extends NodeModel<NodeModelGenerics> {
 		});
         let defaultPorts = [
             {name: 'out',
+            in: false},
+            {name: 'test1',
+            in: false},
+            {name: 'test2',
+            in: true},
+            {name: 'test3',
             in: false}
         ]
 
