@@ -11,6 +11,7 @@ export interface PortMetadata {
 export interface NeuralNodeModelOptions extends BaseModelOptions {
     color?: string;
     name?: string;
+    type?: string;
 }
 
 export interface NeuralNodeModelGenerics extends NodeModelGenerics {
@@ -20,12 +21,21 @@ export interface NeuralNodeModelGenerics extends NodeModelGenerics {
 export class NeuralNodeModel extends NodeModel<NodeModelGenerics> {
     color: string;
 
-	constructor(options: NeuralNodeModelOptions = {}, defaultPorts?: any, type?:string) {
+	constructor(options: NeuralNodeModelOptions = {}, defaultPorts?: any) {
+        if (!options.hasOwnProperty('color')) {
+            options.color = 'rgb(50,50,50)';
+        }
+        if (!options.hasOwnProperty('name')) {
+            options.name = 'Default';
+        }
+        if (!options.hasOwnProperty('type')) {
+            options.type = 'neural-node';
+        }
 		super({
             ...options,
         });
         if (defaultPorts === undefined) {
-            // assign ports to default. 1 input, 1 output
+            // assign ports to global default. 1 input, 1 output
             defaultPorts = [
                 {name: 'out',
                 in: false},
@@ -33,7 +43,7 @@ export class NeuralNodeModel extends NodeModel<NodeModelGenerics> {
                 in: true},
             ]
         }
-        this.color = options.color || 'no-color';
+        this.color = options.color as string;
         for (let i = 0; i < defaultPorts.length; i++) {
             let name = defaultPorts[i].name
             let alignment = (defaultPorts[i].in === true) ? PortModelAlignment.LEFT : PortModelAlignment.RIGHT

@@ -26,10 +26,17 @@ export interface InputNodeModelOptions extends BaseModelOptions {
 
 export class InputNodeModel extends NeuralNodeModel {
 	constructor(options: InputNodeModelOptions = {}) {
+        // defaults
         let defaultPorts = [
             {name: 'out',
             in: false},
         ]
+        if (!options.hasOwnProperty('color')) {
+            options.color = 'rgb(0,192,255)';
+        }
+        if (!options.hasOwnProperty('name')) {
+            options.name = 'Input';
+        }
 		super({
 			...options,
 			type: 'input-neural-node'
@@ -53,6 +60,9 @@ let form_jsx = <InputNodeForm/>
 
 export class InputNodeWidget extends NeuralNodeWidget {
     constructor(props: NeuralNodeWidgetProps) {
-        super(props, form_jsx);
+        super({
+            ...props,
+            children: form_jsx
+        });
     }
 }
