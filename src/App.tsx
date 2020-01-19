@@ -22,8 +22,8 @@ import { NeuralNodeFactory } from './components/neural_nodes/neural_node/NeuralN
 // setup
 const engine = createEngine({ registerDefaultDeleteItemsAction: false });
 engine.getNodeFactories().registerFactory(new InputNodeFactory());
-engine.getNodeFactories().registerFactory(new NeuralNodeFactory());
-engine.getNodeFactories().registerFactory(new DenseNodeFactory());
+// engine.getNodeFactories().registerFactory(new NeuralNodeFactory());
+// engine.getNodeFactories().registerFactory(new DenseNodeFactory());
 engine.getActionEventBus().registerAction(new DeleteItemsAction({ keyCodes: [46] }));
 
 function get_default_model() {
@@ -66,20 +66,23 @@ function get_starter_neural() {
     });
     input_node2.setPosition(500, 100);
 
-    const neural_node = new NeuralNodeModel({
-        name: 'Default',
-        color: 'rgb(0, 255, 255)'
-    })
-    neural_node.setPosition(300, 200);
+    // const neural_node = new NeuralNodeModel({
+    //     name: 'Default',
+    //     color: 'rgb(0, 255, 255)'
+    // })
+    // neural_node.setPosition(300, 200);
 
-    const dense_node = new DenseNodeModel({
-        name: 'Dense',
-        color: 'rgb(122, 122, 0)'
-    })
-    dense_node.setPosition(200, 100);
+    // const dense_node = new DenseNodeModel({
+    //     name: 'Dense',
+    //     color: 'rgb(122, 122, 0)'
+    // })
+    // dense_node.setPosition(200, 100);
 
     const model = new DiagramModel();
-    model.addAll(input_node1, input_node2, neural_node, dense_node);
+    model.addAll(input_node1, input_node2,
+                //  neural_node,
+                //  dense_node
+    );
     return model;
 }
 

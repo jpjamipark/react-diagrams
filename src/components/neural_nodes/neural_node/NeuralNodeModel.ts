@@ -20,10 +20,9 @@ export interface NeuralNodeModelGenerics extends NodeModelGenerics {
 export class NeuralNodeModel extends NodeModel<NodeModelGenerics> {
     color: string;
 
-	constructor(options: NeuralNodeModelOptions = {}, defaultPorts?: any) {
+	constructor(options: NeuralNodeModelOptions = {}, defaultPorts?: any, type?:string) {
 		super({
             ...options,
-            type: 'neural-node'
         });
         if (defaultPorts === undefined) {
             // assign ports to default. 1 input, 1 output

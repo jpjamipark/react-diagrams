@@ -1,11 +1,21 @@
+import * as React from 'react';
 import { NeuralNodeFactory } from '../neural_node/NeuralNodeFactory';
 import { BaseModelOptions } from '@projectstorm/react-canvas-core';
+import { DiagramEngine } from '@projectstorm/react-diagrams';
 import { NeuralNodeModel } from '../neural_node/NeuralNodeModel';
-import { NeuralNodeWidget } from '../neural_node/NeuralNodeWidget';
+import { NeuralNodeWidget, NeuralNodeWidgetProps } from '../neural_node/NeuralNodeWidget';
 
 export class InputNodeFactory extends NeuralNodeFactory {
 	constructor() {
 		super('input-neural-node');
+    }
+
+    generateModel(initialConfig: any) {
+		return new InputNodeModel(initialConfig);
+	}
+
+	generateReactWidget(event: any): JSX.Element {
+		return <InputNodeWidget engine={this.engine as DiagramEngine} node={event.model} />;
 	}
 }
 
@@ -27,4 +37,22 @@ export class InputNodeModel extends NeuralNodeModel {
     }
 }
 
-export class InputNodeWidget extends NeuralNodeWidget {}
+
+export class InputNodeForm extends React.Component {
+    render() {
+        return(
+            <form>
+                <label>Shape</label>
+                <input type="text" name="shape"/>
+            </form>
+        )
+    }
+}
+let form_jsx = <InputNodeForm/>
+
+
+export class InputNodeWidget extends NeuralNodeWidget {
+    constructor(props: NeuralNodeWidgetProps) {
+        super(props, form_jsx);
+    }
+}
