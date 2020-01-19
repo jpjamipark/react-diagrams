@@ -7,7 +7,7 @@ import * as S from '../common/NodeStyles'
 export interface NeuralNodeWidgetProps {
 	node: NeuralNodeModel;
     engine: DiagramEngine;
-    children?: JSX.Element;
+    form_component?: JSX.Element;
 }
 
 export interface NeuralNodeWidgetState {}
@@ -21,13 +21,13 @@ class DefaultNeuralForm extends React.Component {
 }
 
 export class NeuralNodeWidget extends React.Component<NeuralNodeWidgetProps, NeuralNodeWidgetState> {
-    children?: JSX.Element;
+    form_component?: JSX.Element;
 
 	constructor(props: NeuralNodeWidgetProps) {
 		super(props);
         this.state = {};
-        if (props.hasOwnProperty('children')) {
-            this.children = props.children;
+        if (props.hasOwnProperty('form_component')) {
+            this.form_component = props.form_component;
         }
 	}
 
@@ -60,10 +60,10 @@ export class NeuralNodeWidget extends React.Component<NeuralNodeWidgetProps, Neu
                 <S.TitleName>{options.name}</S.TitleName>
             </S.Title>
         );
-        if (this.children) {
+        if (this.form_component) {
             node_elements.push(
                 <S.Form>
-                    { this.children }
+                    { this.form_component }
                 </S.Form>
             )
         }

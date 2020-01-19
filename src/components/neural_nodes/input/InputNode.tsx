@@ -62,7 +62,7 @@ export class InputNodeWidget extends NeuralNodeWidget {
     constructor(props: NeuralNodeWidgetProps) {
         super({
             ...props,
-            children: form_jsx
+            form_component: form_jsx
         });
     }
 }
