@@ -8,7 +8,7 @@ export const Node = styled.div<{ background: string; selected: boolean }>`
     border: solid 2px black;
     overflow: visible;
     font-size: 11px;
-    border: solid 2px ${p => (p.selected ? 'rgb(255,255,255)' : 'black')};
+    border: solid 2px ${p => (p.selected ? 'rgba(255,255,255,0.3)' : 'black')};
 `;
 
 export const Title = styled.div`
