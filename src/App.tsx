@@ -12,6 +12,7 @@ import {
 } from '@projectstorm/react-canvas-core';
 
 import { CustomCanvasWidget } from './helpers/CustomCanvasWidget';
+import { WorkspaceWidget, WorkSpaceButton } from './helpers/WorkspaceWidget';
 
 // custom neural nodes
 import { InputNodeModel, InputNodeFactory } from './components/neural_nodes/input/InputNode';
@@ -83,9 +84,11 @@ function App() {
   let starter_model = get_starter_neural();
   engine.setModel(starter_model);
   return (
-    <CustomCanvasWidget>
-        <CanvasWidget engine={engine}/>
-    </CustomCanvasWidget>
+    <WorkspaceWidget buttons={<WorkSpaceButton onClick={() => engine.zoomToFit()}>Zoom to fit</WorkSpaceButton>}>
+        <CustomCanvasWidget>
+            <CanvasWidget engine={engine}/>
+        </CustomCanvasWidget>
+    </WorkspaceWidget>
   );
 }
 
