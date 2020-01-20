@@ -84,7 +84,8 @@ function App() {
   let starter_model = get_starter_neural();
   engine.setModel(starter_model);
   return (
-    <WorkspaceWidget buttons={<WorkSpaceButton onClick={() => engine.zoomToFit()}>Zoom to fit</WorkSpaceButton>}>
+    <WorkspaceWidget 
+        buttons={<WorkSpaceButton onClick={() => engine.zoomToFit()}>Zoom to fit</WorkSpaceButton>}>
         <CustomCanvasWidget>
             <CanvasWidget engine={engine}/>
         </CustomCanvasWidget>
