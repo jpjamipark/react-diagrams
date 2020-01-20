@@ -16,6 +16,6 @@ export const Port = styled.div`
     height: 15px;
     background: rgba(white, 0.1);
     &:hover {
-        background: rgb(192, 255, 0);
+        background: rgba(255, 255, 255, 0.5);
     }
 `;

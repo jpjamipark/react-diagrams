@@ -12,26 +12,27 @@ export const Node = styled.div<{ background: string; selected: boolean }>`
 `;
 
 export const Title = styled.div`
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.35);
     display: flex;
     white-space: nowrap;
     justify-items: center;
 `;
 
 export const Form = styled.div`
-    background: rgba(0, 0, 0, 0.3);
+    padding: 0px 5px;
+    background: rgba(0, 0, 0, 0.15);
     display: flex;
     white-space: nowrap;
     justify-items: center;
 `;
 
 export const TitleName = styled.div`
-    padding: 5px 5px;
+    padding: 5px;
 `;
 
 export const Ports = styled.div`
     display: flex;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.2));
 `;
 
 export const PortsContainer = styled.div`
