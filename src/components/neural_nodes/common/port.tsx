@@ -44,6 +44,10 @@ export class NeuralPortModel extends PortModel<NeuralPortModelGenerics> {
 	}
 
 	canLinkToPort(port: NeuralPortModel): boolean {
+        if (port === this) {
+            // check for connecting a port to itself
+            return false;
+        }
         if (port.options.in && this.options.in) {
             alert('Can not connect input to input');
             return false;
