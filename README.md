@@ -8,3 +8,7 @@ a visual authoriing environment for neural networks.
 `yarn install`
 then
 `npm start` or `yarn run start`
+
+## Some Hotkeys
+
+Hold shift to select a region
