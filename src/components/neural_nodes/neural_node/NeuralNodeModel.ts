@@ -2,7 +2,6 @@ import { NodeModel, PortModelAlignment, NodeModelGenerics } from '@projectstorm/
 import { BaseModelOptions } from '@projectstorm/react-canvas-core';
 import { NeuralPortModel } from '../common/port';
 
-
 export interface PortMetadata {
     name: string,
     in: boolean
@@ -20,6 +19,7 @@ export interface NeuralNodeModelGenerics extends NodeModelGenerics {
 
 export class NeuralNodeModel extends NodeModel<NodeModelGenerics> {
     color: string;
+    type: string;
 
 	constructor(options: NeuralNodeModelOptions = {}, defaultPorts?: any) {
         if (!options.hasOwnProperty('color')) {
@@ -44,6 +44,7 @@ export class NeuralNodeModel extends NodeModel<NodeModelGenerics> {
             ]
         }
         this.color = options.color as string;
+        this.type = options.type as string;
         for (let i = 0; i < defaultPorts.length; i++) {
             let name = defaultPorts[i].name
             let alignment = (defaultPorts[i].in === true) ? PortModelAlignment.LEFT : PortModelAlignment.RIGHT
