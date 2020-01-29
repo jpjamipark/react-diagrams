@@ -1,6 +1,6 @@
 import React from 'react';
 
-import createEngine, { 
+import createEngine, {
     DefaultLinkModel,
     DiagramModel,
     DefaultNodeModel,
@@ -73,24 +73,35 @@ function get_starter_neural() {
 
     const model = new DiagramModel();
     model.addAll(input_node1, input_node2,
-                 neural_node,
-                //  dense_node
+        neural_node,
+        //  dense_node
     );
     return model;
 }
 
 
-function App() {  
-  let starter_model = get_starter_neural();
-  engine.setModel(starter_model);
-  return (
-    <WorkspaceWidget 
-        buttons={<WorkSpaceButton onClick={() => engine.zoomToFit()}>Zoom to fit</WorkSpaceButton>}>
-        <CustomCanvasWidget>
-            <CanvasWidget engine={engine}/>
-        </CustomCanvasWidget>
-    </WorkspaceWidget>
-  );
+function App() {
+    let starter_model = get_starter_neural();
+    engine.setModel(starter_model);
+    return (
+        <WorkspaceWidget
+            buttons={
+                <div>
+                    <WorkSpaceButton onClick={() => engine.zoomToFit()}>Zoom to fit</WorkSpaceButton>
+                    <WorkSpaceButton
+                        onClick={() => {
+                            console.log(starter_model.serialize());
+                        }}>
+                        Serialize Graph
+        </WorkSpaceButton>
+                </div>
+
+            }>
+            <CustomCanvasWidget>
+                <CanvasWidget engine={engine} />
+            </CustomCanvasWidget>
+        </WorkspaceWidget>
+    );
 }
 
 export default App;
