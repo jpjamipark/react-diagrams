@@ -7,7 +7,7 @@ import * as S from '../common/NodeStyles'
 export interface NeuralNodeWidgetProps {
 	node: NeuralNodeModel;
     engine: DiagramEngine;
-    form_component?: JSX.Element;
+    form_component?: any;
 }
 
 export interface NeuralNodeWidgetState {}
@@ -23,11 +23,17 @@ class DefaultNeuralForm extends React.Component {
 export class NeuralNodeWidget extends React.Component<NeuralNodeWidgetProps, NeuralNodeWidgetState> {
     form_component?: JSX.Element;
 
+    handleChange = (event: any) => {
+        // this.setState({value: event.target.value});
+        console.log(event.target.value);
+        this.props.node.parameters.shape = event.target.value;
+    }
+
 	constructor(props: NeuralNodeWidgetProps) {
 		super(props);
         this.state = {};
         if (props.hasOwnProperty('form_component')) {
-            this.form_component = props.form_component;
+            this.form_component = <props.form_component onChange={this.handleChange}/>;
         }
 	}
 

@@ -44,25 +44,30 @@ export class InputNodeModel extends NeuralNodeModel {
     }
 }
 
+export interface InputNodeFormProps {
+    onChange: any;
+}
 
-export class InputNodeForm extends React.Component {
+
+export class InputNodeForm extends React.Component<InputNodeFormProps> {
+    constructor(props: InputNodeFormProps) {
+        super(props)
+    }
     render() {
         return(
             <form>
                 <label>Shape</label>
-                <input type="text" name="shape"/>
+                <input type="text" name="shape" onChange={this.props.onChange}/>
             </form>
         )
     }
 }
-let form_jsx = <InputNodeForm/>
-
 
 export class InputNodeWidget extends NeuralNodeWidget {
     constructor(props: NeuralNodeWidgetProps) {
         super({
             ...props,
-            form_component: form_jsx
+            form_component: InputNodeForm
         });
     }
 }

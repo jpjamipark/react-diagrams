@@ -13,6 +13,10 @@ export interface NeuralNodeModelOptions extends BaseModelOptions {
     type?: string;
 }
 
+export interface NeuralNodeModelParameters {
+    shape?: string;
+}
+
 export interface NeuralNodeModelGenerics extends NodeModelGenerics {
 	OPTIONS: NeuralNodeModelOptions;
 }
@@ -20,6 +24,7 @@ export interface NeuralNodeModelGenerics extends NodeModelGenerics {
 export class NeuralNodeModel extends NodeModel<NodeModelGenerics> {
     color: string;
     type: string;
+    parameters: NeuralNodeModelParameters;
 
 	constructor(options: NeuralNodeModelOptions = {}, defaultPorts?: any) {
         if (!options.hasOwnProperty('color')) {
@@ -34,6 +39,7 @@ export class NeuralNodeModel extends NodeModel<NodeModelGenerics> {
 		super({
             ...options,
         });
+        this.parameters = {}
         if (defaultPorts === undefined) {
             // assign ports to global default. 1 input, 1 output
             defaultPorts = [
@@ -60,7 +66,8 @@ export class NeuralNodeModel extends NodeModel<NodeModelGenerics> {
 	serialize() {
 		return {
 			...super.serialize(),
-			color: this.color
+            color: this.color,
+            parameters: this.parameters
 		};
 	}
 }
